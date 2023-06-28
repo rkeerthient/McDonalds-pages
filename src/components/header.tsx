@@ -93,8 +93,7 @@ const Header = () => {
     const experienceVersion = "PRODUCTION";
     const businessId = "3919000";
     const locale = "en";
-    var url =
-      "https://liveapi.yext.com/v2/accounts/me/answers/autocomplete";
+    var url = "https://liveapi.yext.com/v2/accounts/me/answers/autocomplete";
     url += "?v=20190101";
     url += "&api_key=" + apiKey;
     url += "&sessionTrackingEnabled=false";
@@ -127,20 +126,11 @@ const Header = () => {
       <SearchHeadlessProvider searcher={searcher}>
         <div className="w-full">
           <nav className="">
-            <img
-              loading="lazy"
-              src="https://i.imgur.com/pDK1zJg.png"
-              className="hidden md:block"
-            ></img>
-            <img
-              loading="lazy"
-              src="https://i.imgur.com/wMLbcJg.png"
-              className="block md:hidden"
-            ></img>
+            <img loading="lazy" src="https://i.imgur.com/d1ylkrj.png"></img>
           </nav>
         </div>
 
-        <div className="w-full">
+        <div className="w-full my-6">
           <SearchBar
             onSearch={onSearch}
             customCssClasses={{

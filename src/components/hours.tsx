@@ -140,9 +140,11 @@ const Hours = (props: Hours) => {
   const { title, hours } = props;
 
   return (
-    <>
-      <div className="text-base md:text-xl font-semibold mb-4">{title}</div>
-      <table className="ml-16">
+    <span className="text-base font-normal">
+      {title && (
+        <div className="text-base md:text-xl font-semibold mb-4">{title}</div>
+      )}
+      <table className="ml-8 my-3">
         <thead className="sr-only">
           <tr>
             <th>Day of the Week</th>
@@ -151,7 +153,7 @@ const Hours = (props: Hours) => {
         </thead>
         {renderHours(hours)}
       </table>
-    </>
+    </span>
   );
 };
 

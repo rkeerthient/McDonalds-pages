@@ -14,7 +14,7 @@ const Cta = (props: Cta) => {
       href={url}
       className={
         `${style}` +
-        " py-2 px-3 md:py-4 md:px-6 text-sm md:text-base text-white rounded-full"
+        " py-2 px-3 md:py-4 md:px-6   md:text-base text-white rounded-full"
       }
       target="_blank"
       rel="noopener noreferrer"

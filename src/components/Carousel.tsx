@@ -47,21 +47,21 @@ const Carousel = (props: any) => {
     <Slider {...settings}>
       {data &&
         data.map((item: any, index: any) => (
-          <div key={index} className="p-4 border">
-            <div>
-              {/* <img
-                src={item.c_photo.url}
-                alt=""
-                className="max-w-full	w-full"
-              /> */}
-              <Image image={item.c_photo} className="max-w-full	w-full"></Image>
+          <div key={index} className="p-4">
+            <div
+              className="bg-cover bg-center"
+              style={{
+                height: "250px",
+                width: "250px",
+                backgroundImage: `url("${item.c_photo.url}")`,
+              }}
+            >
+              {/* <Image className="border" image={item.c_photo}></Image> */}
             </div>
             <div className="textClass flex justify-between leading-6 font-normal">
               <div className="text-left ml-1">
                 <div className="mt-4 text-base font-bold">{item.name}</div>
-                <div className="mt-4 text-xs">
-                  {item.c_calories}
-                </div>
+                <div className="mt-4 text-xs">{item.c_calories}</div>
               </div>
               {/* <div className="mt-4 w-1/4">
                 <AiOutlinePlusCircle

@@ -82,8 +82,8 @@ const HoursText = ({ document }: any) => {
   };
   const res = getDayName(hours, timezone);
   return (
-    <div className="hero mt-4 w-full">
-      <div className="hero-row">
+    <div className="hero w-full">
+      <div className="hero-row text-lg">
         <div
           className={
             res.status.includes("Open")
@@ -91,16 +91,16 @@ const HoursText = ({ document }: any) => {
               : "Hero-hoursToday storeClosed flex gap-1 items-center w-max	"
           }
         >
-          <p className="font-bold">
-            {res.status === "Open Now"
+          <p className="font-bold ">
+            {res.status.toLowerCase() === "open now"
               ? "Open Now - "
-              : res.status === "Closed"
+              : res.status.toLowerCase() === "closed"
               ? "Closed  - "
-              : res.status === "Closed perm"
+              : res.status.toLowerCase() === "closed perm"
               ? "Closed"
               : ""}
           </p>
-          {res.status !== "Closed perm" && res.text}
+          {res.status.toLowerCase() !== "closed perm" && res.text}
         </div>
       </div>
     </div>

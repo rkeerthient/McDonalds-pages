@@ -44,7 +44,7 @@ import { useState } from "react";
 import LocCarousel from "../components/LocCarousel";
 import Schema from "../components/Schema";
 import RTF from "../components/RTF";
-
+import { BiRightArrowAlt } from "react-icons/bi";
 /**
  * Required when Knowledge Graph data is used for a template.
  */
@@ -97,8 +97,9 @@ export const config: TemplateConfig = {
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
   return document.slug
     ? document.slug
-    : `${document.locale}/${document.address.region}/${document.address.city}/${document.address.line1
-    }-${document.id.toString()}`;
+    : `${document.locale}/${document.address.region}/${document.address.city}/${
+        document.address.line1
+      }-${document.id.toString()}`;
 };
 
 /**
@@ -173,13 +174,22 @@ const Location: Template<TemplateRenderProps> = ({
     mainPhone,
     geocodedCoordinate,
     c_relatedMenuItems,
-    c_relatedFAQs, c_disc
+    c_relatedFAQs,
+    c_disc,
     // c_nearByLocations,
     // c_bannerImg,
   } = document;
   const [isActive, setIsActive] = useState(false);
 
-  let services = ["Mobile Deals", "Mobile Ordering", "Drive Thru Coffee", "Gift Cards", "Drive Thru", "McDelivery", "Wi-Fi"];
+  let services = [
+    "Mobile Deals",
+    "Mobile Ordering",
+    "Drive Thru Coffee",
+    "Gift Cards",
+    "Drive Thru",
+    "McDelivery",
+    "Wi-Fi",
+  ];
   return (
     <>
       {/* <Schema document={cpy}></Schema> */}
@@ -187,75 +197,78 @@ const Location: Template<TemplateRenderProps> = ({
       <Banner
         name={name}
         address={address}
-        img={"https://lh3.googleusercontent.com/p/AF1QipO2rmH8pFgmiDcB3RvCa-Zo-XL1WYN6Mheeiys-=s1360-w1360-h1020"}
+        img={
+          "https://lh3.googleusercontent.com/p/AF1QipO2rmH8pFgmiDcB3RvCa-Zo-XL1WYN6Mheeiys-=s1360-w1360-h1020"
+        }
         openTime={openTime}
       ></Banner>
       <div className="centered-container">
         <div className="section">
-
+          <h1 className="text-4xl mb-4 font-bold text-black uppercase">
+            {name} Info
+          </h1>
           <div className="grid grid-cols-1 md:grid-cols-3 mx-auto">
             <div>
-              <div className="text-center   mx-auto">  <h1 className="text-4xl mb-4 font-bold text-black uppercase text-center">
-                {name}
-              </h1>
+              <div>
                 <Contact
                   address={address}
                   phone={mainPhone}
                   showCTA={true}
                 ></Contact>
               </div>
-              {/* test */}
             </div>
-            <div>
-              <div className="pt-5 mt-4 md:mt-0 mx-auto">
-
-                <div className="flex flex-col mt-4 text-base md:text-xl justify-center md:justify-left gap-y-4">
-                  <div className="flex gap-4 items-center">
-                    <div><BsArrowRightCircle /></div>
-                    <div className="text-2xl font-bold">Services</div>
-                  </div>
-                  {/* <span className="font-bold ">Services:</span> */}
-
-                  <div className=" ml-2 grid grid-cols-2 services gap-4">
-                    {services.map((item) => (
-                      <div>{item}</div>
+            <div className="text-lg font-normal ">
+              <div className=" md:mt-0 mx-auto space-y-4">
+                <div className="flex flex-col text-base justify-center md:justify-left gap-y-1">
+                  <div className="text-2xl font-bold">Services</div>
+                  <div className="ml-2 grid grid-cols-2 services gap-y-1">
+                    {services.map((item, index) => (
+                      <div key={index} className="items-center flex gap-1">
+                        <BiRightArrowAlt />
+                        <div>{item}</div>
+                      </div>
                     ))}
                   </div>
                 </div>
 
                 {hours && (
-                  <div className="flex w-full leading-loose items-baseline text-base md:text-xl">
-                    <FiClock />
-                    <span className="ml-2">
-                      <HoursText document={document} />
-                    </span>
-                    {!isActive && (
-                      <BsChevronDown
-                        className="ml-4"
-                        onClick={(e) => setIsActive(!isActive)}
-                      />
-                    )}
-                    {isActive && (
-                      <BsChevronUp
-                        className="ml-4"
-                        onClick={(e) => setIsActive(!isActive)}
-                      />
-                    )}
+                  <div className="space-y-1">
+                    <div className="text-2xl font-bold">Store hours</div>
+                    <div className="flex items-center w-full leading-loose  text-base md:text-xl">
+                      <FiClock />
+                      <span className="ml-2">
+                        <HoursText document={document} />
+                      </span>
+                      {!isActive && (
+                        <BsChevronDown
+                          className="ml-4"
+                          onClick={(e) => setIsActive(!isActive)}
+                        />
+                      )}
+                      {isActive && (
+                        <BsChevronUp
+                          className="ml-4"
+                          onClick={(e) => setIsActive(!isActive)}
+                        />
+                      )}
+                    </div>
                   </div>
                 )}
                 {isActive && hours && <Hours title={""} hours={hours} />}
-              </div></div>
-            <div className="mt-8"> {geocodedCoordinate && (
-              <StaticMap
-                latitude={geocodedCoordinate.latitude}
-                longitude={geocodedCoordinate.longitude}
-              ></StaticMap>
-            )}</div>
-
+              </div>
+            </div>
+            <div>
+              {geocodedCoordinate && (
+                <StaticMap
+                  latitude={geocodedCoordinate.latitude}
+                  longitude={geocodedCoordinate.longitude}
+                ></StaticMap>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <div className="mx-auto p-4 mb-4 mx-auto text-center">
+      <div className="mx-auto p-4 mb-4 text-center">
         <h1 className="text-4xl mb-4 font-bold text-black uppercase">
           Featured Menu
         </h1>
@@ -271,57 +284,59 @@ const Location: Template<TemplateRenderProps> = ({
             style={{ height: "300px" }}
           >
             <div
-              className="w-full md:w-1/2"
+              className="w-full md:w-1/2 flex justify-center gap-y-2"
               style={{
                 backgroundImage:
                   "url(https://www.mcdonalds.com/content/dam/sites/usa/nfl/publication/1PUB_GrimaceBirthday.jpg)",
                 backgroundSize: "cover",
               }}
             >
-              <div
-                className="w-2/3 h-2/3 border my-auto p-4"
-                style={{
-                  marginTop: "5%",
-                  marginLeft: "5%",
-                  background: "black",
-
-                  color: "white",
-                }}
-              >
-                <h1 className="text-base md:text-xl font-bold">
-                  Grimace's B-day Is Best B-day
-                </h1>
-                <p className="pb-4  md:my-4">
-                  HBD, purple pal. Get Grimace's Birthday Shake exclusively with Grimace's Birthday Meal—including ur choice of Big Mac® or 10 piece McNuggets® and Fries.
-                </p>
-                <Cta buttonText="Get His B-day Meal" style="primary-cta " url={""}></Cta>
+              <div className="w-3/4 border my-8 p-4 flex flex-col bg-opacity-80 bg-black text-white gap-y-5">
+                <div className="space-y-2">
+                  <h1 className="text-base md:text-xl font-bold">
+                    Grimace's B-day Is Best B-day
+                  </h1>
+                  <p className="h-28">
+                    HBD, purple pal. Get Grimace's Birthday Shake exclusively
+                    with Grimace's Birthday Meal—including ur choice of Big Mac®
+                    or 10 piece McNuggets® and Fries.
+                  </p>
+                </div>
+                <div>
+                  <Cta
+                    buttonText="Get His B-day Meal"
+                    style="primary-cta "
+                    url={""}
+                  ></Cta>
+                </div>
               </div>
             </div>
             <div
-              className="w-full md:w-1/2"
+              className="w-full md:w-1/2 flex justify-center gap-y-2"
               style={{
                 backgroundImage:
                   "url(https://www.mcdonalds.com/content/dam/sites/usa/nfl/publication/1pub_FreeLargeFries_2336x1040.jpg)",
                 backgroundSize: "cover",
               }}
             >
-              <div
-                className="w-2/3 h-2/3 border my-auto p-4"
-                style={{
-                  marginTop: "1%",
-                  marginLeft: "5%",
-                  background: "black",
-
-                  color: "white",
-                }}
-              >
-                <h1 className="text-base md:text-xl font-bold">
-                  Free Large Fries Now.
-                </h1>
-                <p className="pb-4 md:my-4">
-                  When you join MyMcDonald’s Rewards, you start earning points on every eligible order—points you can put towards more free food.
-                </p>
-                <Cta buttonText="Get Free Fries in the App" style="primary-cta " url={""}></Cta>
+              <div className="w-3/4 bg-opacity-80 border my-8 p-4 flex flex-col bg-black text-white gap-y-5">
+                <div className="space-y-2">
+                  <h1 className="text-base md:text-xl font-bold">
+                    Free Large Fries Now.
+                  </h1>
+                  <p className="h-28">
+                    When you join MyMcDonald’s Rewards, you start earning points
+                    on every eligible order—points you can put towards more free
+                    food.
+                  </p>
+                </div>
+                <div>
+                  <Cta
+                    buttonText="Get Free Fries in the App"
+                    style="primary-cta "
+                    url={""}
+                  ></Cta>
+                </div>
               </div>
             </div>
           </div>
@@ -345,7 +360,10 @@ const Location: Template<TemplateRenderProps> = ({
                         <span className="font-bold">{item.question}</span>
                       </AccordionItemButton>
                     </AccordionItemHeading>
-                    <AccordionItemPanel> <RTF>{item.answer}</RTF></AccordionItemPanel>
+                    <AccordionItemPanel>
+                      {" "}
+                      <RTF>{item.answer}</RTF>
+                    </AccordionItemPanel>
                   </AccordionItem>
                 ))}
               </Accordion>
@@ -362,7 +380,8 @@ const Location: Template<TemplateRenderProps> = ({
             Deliciousness at your fingertips
           </h1>
           <div className="mt-4 text-base md:text-xl">
-            Order now with the Mobile Order & Pay app on iOS or Android, and pick it up at the store
+            Order now with the Mobile Order & Pay app on iOS or Android, and
+            pick it up at the store
           </div>
           <div className="flex w-3/4 md:w-full mx-auto mt-4 md:mt-8 gap-1 md:gap-4 justify-start md:justify-none">
             <img
@@ -390,7 +409,6 @@ const Location: Template<TemplateRenderProps> = ({
       </div>
       <div className="my-8 hidden md:block ">
         <div className="pt-5">
-
           <div className="w-4/6 mx-auto text-center mt-10  bg-white">
             <div className=" font-bold uppercase text-black text-5xl">
               About {name}
@@ -399,8 +417,9 @@ const Location: Template<TemplateRenderProps> = ({
               <div className="mt-4 text-left text-gray-500 leading-8 w-1/2">
                 <RTF>{c_disc}</RTF>
               </div>
-              <div className=" w-1/2">
+              <div className=" w-1/2 ">
                 <img
+                  className="h-full"
                   src="https://lh3.googleusercontent.com/p/AF1QipO2rmH8pFgmiDcB3RvCa-Zo-XL1WYN6Mheeiys-=s1360-w1360-h1020"
                   alt=""
                 />
@@ -409,7 +428,7 @@ const Location: Template<TemplateRenderProps> = ({
           </div>
         </div>
       </div>
-      <div className="mx-auto p-4 mb-4 mx-auto text-center">
+      <div className="mx-auto p-4 mb-4 text-center">
         <h1 className="text-4xl mb-4 font-bold text-black uppercase">
           Near by locations
         </h1>
@@ -417,7 +436,7 @@ const Location: Template<TemplateRenderProps> = ({
           <LocCarousel data={c_nearByLocations} document={document} />
         )} */}
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
